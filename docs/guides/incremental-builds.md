@@ -29,10 +29,13 @@ react-static export --incremental
 Below is a basic example that:
 
 - Updates the `blog` route to not have any `posts` data (and updates the exported html)
+- Adds a new blog post at `blog/post/boom`
 - Removes the `blog/post/3` route
 
 ```javascript
 import axios from 'axios'
+
+const boomPost = {...}
 
 export default {
   getSiteData: () => ({
@@ -48,6 +51,13 @@ export default {
             posts: [], // Update the posts data
           }),
           children: [
+            {
+              path: '/post/boom'
+              component: 'src/containers/Post',
+              getData: () => ({
+                post: boomPost,
+              }),
+            }
             {
               path: '/post/3',
               remove: true, // Flag for removal
